@@ -1,0 +1,32 @@
+<button id="scanButton">Scan</button>
+<script>
+
+if (!("NDEFReader" in window))
+  console.log(
+    "Web NFC is not available.\n" +
+      'Please make sure the "Experimental Web Platform features" flag is enabled on Android.'
+  );
+  
+  
+scanButton.addEventListener("click", async () => {
+  window.alert("User clicked scan button");
+
+  try {
+    const reader = new NDEFReader();
+    await reader.scan();
+    window.alert("> Scan started");
+
+    reader.addEventListener("error", (event) => {
+      window.alert(`Argh! ${event.message}`);
+    });
+
+    reader.addEventListener("reading", ({ message, serialNumber }) => {
+      window.alert(`> Serial Number: ${serialNumber}`);
+      window.alert(`> Records: (${message.records})`);
+    });
+  } catch (error) {
+    window.alert("Argh! " + error);
+  }
+});
+
+</script>
