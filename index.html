@@ -22,7 +22,7 @@ scanButton.addEventListener("click", async () => {
 
     reader.addEventListener("reading", ({ message, serialNumber }) => {
       window.alert(`> Serial Number: ${serialNumber}`);
-      window.alert(`> Records: (${message.records})`);
+      window.alert(`> Records: (${JSON.stringify(message.records)})`);
     });
   } catch (error) {
     window.alert("Argh! " + error);
